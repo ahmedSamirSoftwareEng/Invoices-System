@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+قائمة الفواتير
+@stop
 @section('css')
 <!-- Internal Data table css -->
 <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -79,9 +82,6 @@
 </div>
 
 
-<!-- Container closed -->
-
-<!-- main-content closed -->
 @endsection
 @section('js')
 <!-- Internal Data tables -->
