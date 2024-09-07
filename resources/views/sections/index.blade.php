@@ -79,7 +79,7 @@
 		<div class="card mg-b-20">
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
-					<div class="col-sm-6 col-md-4 col-xl-3">
+				<div class="d-flex justify-content-between">
 						<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة قسم</a>
 					</div>
 				</div>
@@ -87,8 +87,7 @@
 
 					<div class="table-responsive">
 
-						<table id="example1" class="table key-buttons text-md-nowrap">
-							<p class="m-1">عدد الاقسام {{$sections->count()}}</p>
+						<table id="example1" class="table key-buttons text-md-nowrap" data-page-length="50">
 
 							<thead>
 								<tr>
@@ -108,7 +107,8 @@
 									<td>{{$section->section_name}}</td>
 									<td>{{$section->description}}</td>
 									<td>
-										<!-- edit button -->
+											
+									<!-- edit button -->
 
 										<a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
 											data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
@@ -120,7 +120,7 @@
 											data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}" data-toggle="modal"
 											href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
 
-									</td>
+							</td>
 
 								</tr>
 
@@ -206,15 +206,15 @@
 							type="button"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<form action="sections/destroy" method="post">
-						{{method_field('delete')}}
-						{{csrf_field()}}
+						@csrf
+						@method('delete')
 						<div class="modal-body">
 							<p>هل انت متاكد من عملية الحذف ؟</p><br>
 							<input type="hidden" name="id" id="id" value="">
-							<input class="form-control" name="section_name" id="section_name" 
-							type="text" readonly>
+							<input class="form-control" name="section_name" id="section_name"
+								type="text" readonly>
 						</div>
-						
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
 							<button type="submit" class="btn btn-danger">تاكيد</button>
