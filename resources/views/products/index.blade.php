@@ -89,7 +89,8 @@
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
 					<div class="d-flex justify-content-between">
-						<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#exampleModal">اضافة منتج</a>
+						<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
+						 href="#exampleModal">  <i class="fas fa-plus"></i >  اضافة منتج   </a>
 					</div>
 				</div>
 			</div>

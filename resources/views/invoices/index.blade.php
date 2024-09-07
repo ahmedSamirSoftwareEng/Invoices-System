@@ -24,6 +24,9 @@
 <!-- breadcrumb -->
 @endsection
 @section('content')
+
+
+
 <!-- row -->
 <div class="row row-sm">
 
@@ -31,14 +34,17 @@
 		<div class="card mg-b-20">
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
-					<h4 class="card-title mg-b-0">Bordered Table</h4>
-					<i class="mdi mdi-dots-horizontal text-gray"></i>
+				<div class="d-flex justify-content-between">
+
+				<a href="invoices/create" class="modal-effect btn btn-outline-primary btn-block"
+				 data-bs-effect="effect-scale" data-bs-toggle="modal"> <i class="fas fa-plus"></i>&nbsp; اضافة فاتورة </a>
+				
 				</div>
-				<p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
+				</div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="example1" class="table key-buttons text-md-nowrap">
+					<table id="example1" class="table key-buttons text-md-nowrap" data-page-length="50">
 						<thead>
 							<tr>
 								<th class="border-bottom-0">#</th>
@@ -56,21 +62,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							
+							@foreach($invoices as $invoice)
 							<tr>
-								<td>1</td>
-								<td>INV-001</td>
-								<td>3-10-2019</td>
-								<td>3-10-2019</td>
-								<td>منتج</td>
-								<td>منتج</td>
-								<td>10%</td>
-								<td>10%</td>
-								<td>10%</td>
-								<td>10%</td>
-								<td><span class="badge badge-success">تم التسليم</span></td>
-								<td>لا يوجد</td>
-								
-							</tr>
+								<td>{{$loop->iteration}}</td>
+								<td>{{$invoice->invoice_number}}</td>
+								<td>{{$invoice->invoice_Date}}</td>
+								<td>{{$invoice->due_date}}</td>
+								<td>{{$invoice->product}}</td>
+								<td>{{$invoice->section_id}}</td>
+								<td>{{$invoice->discount}}</td>
+								<td>{{$invoice->rate_vat}}</td>
+								<td>{{$invoice->value_vat}}</td>	
+
+							@endforeach
 							
 						</tbody>
 					</table>

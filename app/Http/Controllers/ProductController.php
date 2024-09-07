@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $sections=Section::all();
+        $sections = Section::all();
         $products = Product::all();
         return view('products.index', compact('products', 'sections'));
     }
@@ -32,32 +32,34 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       $validatedData=$request->validate([
-           'product_name' => 'required|max:255',
-           'section_id' => 'required',
-       ],[
-           'product_name.required' => 'يرجي ادخال اسم المنتج',
-           'section_id.required' => 'يرجي اختيار القسم',
-       ]
-       );
-    //    check if name of new product is exist in same section 
+        $validatedData = $request->validate(
+            [
+                'product_name' => 'required|max:255',
+                'section_id' => 'required',
+            ],
+            [
+                'product_name.required' => 'يرجي ادخال اسم المنتج',
+                'section_id.required' => 'يرجي اختيار القسم',
+            ]
+        );
+        //    check if name of new product is exist in same section 
 
-       $product=Product::where('section_id', $request->section_id)->where('product_name', $request->product_name)->first();
-       if($product){
-        $section_name=Section::where('id', $request->section_id)->first();
-        session()->flash('Error', ' المنتج موجود مسبقا في'.' '.$section_name->section_name);
+        $product = Product::where('section_id', $request->section_id)->where('product_name', $request->product_name)->first();
+        if ($product) {
+            $section = Section::where('id', $request->section_id)->first();
+            session()->flash('Error', ' المنتج موجود مسبقا في' . ' ' . $section->section_name);
+            return redirect('/products');
+        }
+
+
+        Product::create([
+            'product_name' => $request->product_name,
+            'section_id' => $request->section_id,
+            'description' => $request->description,
+            'created_by' => Auth::user()->name,
+        ]);
+        session()->flash('Add', 'تمت الاضافة بنجاح');
         return redirect('/products');
-       }
-    
-
-       Product::create([
-           'product_name' => $request->product_name,
-           'section_id' => $request->section_id,
-           'description' => $request->description,
-           'created_by' => Auth::user()->name,
-       ]);
-       session()->flash('Add', 'تمت الاضافة بنجاح');
-       return redirect('/products');
     }
 
     /**
@@ -82,9 +84,9 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         // dd($request->all());
-        $section_id =Section::where('section_name', $request->section_name)->first()->id;
+        $section_id = Section::where('section_name', $request->section_name)->first()->id;
 
-        $products=Product::findorfail($request->id);
+        $products = Product::findorfail($request->id);
         $products->update([
             'product_name' => $request->product_name,
             'section_id' => $section_id,
@@ -93,7 +95,6 @@ class ProductController extends Controller
         ]);
         session()->flash('edit', 'تم تعديل المنتج بنجاح');
         return redirect('/products');
-       
     }
 
     /**
@@ -101,10 +102,10 @@ class ProductController extends Controller
      */
     public function destroy(Request $request)
     {
-     $id = $request->id;
-     $products = Product::find($id);
-     $products->delete();
-     session()->flash('delete', 'تم حذف المنتج بنجاح');   
-     return redirect('/products');
+        $id = $request->id;
+        $products = Product::find($id);
+        $products->delete();
+        session()->flash('delete', 'تم حذف المنتج بنجاح');
+        return redirect('/products');
     }
 }

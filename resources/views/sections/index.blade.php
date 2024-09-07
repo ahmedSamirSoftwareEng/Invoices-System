@@ -80,7 +80,8 @@
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
 				<div class="d-flex justify-content-between">
-						<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة قسم</a>
+						<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
+						 href="#modaldemo8"> <i class="fas fa-plus"></i >  اضافة قسم  </a>
 					</div>
 				</div>
 				<div class="card-body">

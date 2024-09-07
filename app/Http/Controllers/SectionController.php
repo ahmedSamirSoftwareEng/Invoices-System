@@ -32,13 +32,12 @@ class SectionController extends Controller
     {   
         $validatedData=$request->validate([
             'section_name' => 'required|unique:sections|max:255',
-            'description' => 'required',
+            
 
         ],[
             'section_name.required' =>'يرجي ادخال اسم القسم',
             'section_name.unique' =>'اسم القسم موجود مسبقا',
             'section_name.max' =>'اسم القسم يجب الا يزيد عن 255 حرف',
-            'description.required' =>'يرجي ادخال الوصف',
         ]);
         
 
