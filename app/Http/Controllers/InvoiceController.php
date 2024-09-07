@@ -68,6 +68,7 @@ class InvoiceController extends Controller
         ]);
 
         if ($request->hasFile('pic')) {
+            
 
             $invoice_id = Invoice::latest()->first()->id;
             $image = $request->file('pic');

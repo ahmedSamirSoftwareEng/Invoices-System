@@ -34,12 +34,12 @@
 		<div class="card mg-b-20">
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
-				<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between">
 
-				<a href="invoices/create" class="modal-effect btn btn-outline-primary btn-block"
-				 data-bs-effect="effect-scale" data-bs-toggle="modal"> <i class="fas fa-plus"></i>&nbsp; اضافة فاتورة </a>
-				
-				</div>
+						<a href="invoices/create" class="modal-effect btn btn-outline-primary btn-block"
+							data-bs-effect="effect-scale" data-bs-toggle="modal"> <i class="fas fa-plus"></i>&nbsp; اضافة فاتورة </a>
+
+					</div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -62,28 +62,43 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 							@foreach($invoices as $invoice)
 							<tr>
 								<td>{{$loop->iteration}}</td>
-								<td>{{$invoice->invoice_number}}</td>
+								<td> <a href="{{url('InvoicesDetails')}}/{{$invoice->id}}">
+									{{$invoice->invoice_number}}</a> </td>
 								<td>{{$invoice->invoice_Date}}</td>
-								<td>{{$invoice->due_date}}</td>
+								<td>{{$invoice->Due_date}}</td>
 								<td>{{$invoice->product}}</td>
-								<td>{{$invoice->section_id}}</td>
-								<td>{{$invoice->discount}}</td>
-								<td>{{$invoice->rate_vat}}</td>
-								<td>{{$invoice->value_vat}}</td>	
+								<td>{{$invoice->section->section_name}}</td>
+								<td>{{$invoice->Discount}}</td>
+								<td>{{$invoice->Rate_VAT}}</td>
+								<td>{{$invoice->Value_VAT}}</td>
+								<td>{{$invoice->Total}}</td>
+								<td>
+									@if ($invoice->Value_Status == 1)
+									<span class="badge bg-success text-white">{{ $invoice->Status }}</span>
+									@elseif($invoice->Value_Status == 2)
+									<span class="badge bg-danger text-white">{{ $invoice->Status }}</span>
+									@else
+									<span class="badge bg-warning text-white">{{ $invoice->Status }}</span>
+									@endif
 
-							@endforeach
-							
+
+
+								</td>
+								<td>{{$invoice->note}}</td>
+
+								@endforeach
+
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 
 
