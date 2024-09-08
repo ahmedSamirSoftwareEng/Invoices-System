@@ -25,10 +25,10 @@
 @endsection
 @section('content')
 
-
+<div class="w-25">
 @if ($errors->any())
 <div class="alert alert-danger">
-    <ul>
+    <ul class="list-unstyled">
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
@@ -39,7 +39,7 @@
 
 @if (session()->has('Add'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>{{ session()->get('Add') }}</strong>
+    <strong class="m-4">{{ session()->get('Add') }}</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -48,9 +48,9 @@
 
 
 
-<div class="w-25">
+
 @if (session()->has('delete'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong class="m-4">{{ session()->get('delete') }}</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -204,15 +204,15 @@
                                     <div class="tab-pane" id="tab6">
                                         <!--المرفقات-->
                                         <div class="card card-statistics">
-                                            @can('اضافة مرفق')
-                                            <div class="card-body">
+                                           
+                                            <div class="card-body w-50">
                                                 <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
                                                 <h5 class="card-title">اضافة مرفقات</h5>
                                                 <form method="post" action="{{ url('/InvoiceAttachments') }}"
                                                     enctype="multipart/form-data">
-                                                    {{ csrf_field() }}
+                                                    @csrf
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile"
+                                                        <input type="file" class="custom-file-input " id="customFile"
                                                             name="file_name" required>
                                                         <input type="hidden" id="customFile" name="invoice_number"
                                                             value="{{ $invoices->invoice_number }}">
@@ -225,7 +225,7 @@
                                                         name="uploadedFile">تاكيد</button>
                                                 </form>
                                             </div>
-                                            @endcan
+                                        
                                             <br>
 
                                             <div class="table-responsive mt-15">

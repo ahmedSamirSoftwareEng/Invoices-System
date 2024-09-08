@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('Status', 50);
             $table->integer('Value_Status');
             $table->text('note')->nullable();
-            $table->date('Payment_Date')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
