@@ -52,6 +52,10 @@ Route::get('Invoice_UnPaid',[InvoiceController::class,'Invoice_UnPaid'])->name('
 
 Route::get('Invoice_Partial',[ InvoiceController::class,'Invoice_Partial'])->name('Invoice_Partial');
 
+Route::get('Print_invoice/{id}', [InvoiceController::class, 'Print_invoice'])->name('Print_invoice');
+
+
+
 
 
 Route::get('/{page}', [AdminController::class, 'index']);

@@ -39,16 +39,15 @@
 @endif
 
 @if (session()->has('restore_invoice'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "تم استعادة الفاتورة بنجاح",
-                    type: "success"
-                })
-            }
-
-        </script>
-    @endif
+<script>
+	window.onload = function() {
+		notif({
+			msg: "تم استعادة الفاتورة بنجاح",
+			type: "success"
+		})
+	}
+</script>
+@endif
 
 @if (session()->has('Status_Update'))
 <script>
@@ -147,10 +146,15 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
 												حالة
 												الدفع</a>
-												<a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
-                                                            data-toggle="modal" data-target="#Transfer_invoice"><i
-                                                                class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
-                                                            الارشيف</a>
+											<a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
+												data-toggle="modal" data-target="#Transfer_invoice"><i
+													class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
+												الارشيف</a>
+												
+											<a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
+													class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
+												الفاتورة
+											</a>
 										</div>
 									</div>
 
@@ -201,32 +205,32 @@
 
 <!-- ارشيف الفاتورة -->
 <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ارشفة الفاتورة</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <form action="{{ route('invoices.destroy', 'test') }}" method="post">
-                       @csrf
-						@method('DELETE')
-                </div>
-                <div class="modal-body">
-                    هل انت متاكد من عملية الارشفة ؟
-                    <input type="hidden" name="invoice_id" id="invoice_id" value="">
-                    <input type="hidden" name="id_page" id="id_page" value="2">
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">ارشفة الفاتورة</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<form action="{{ route('invoices.destroy', 'test') }}" method="post">
+					@csrf
+					@method('DELETE')
+			</div>
+			<div class="modal-body">
+				هل انت متاكد من عملية الارشفة ؟
+				<input type="hidden" name="invoice_id" id="invoice_id" value="">
+				<input type="hidden" name="id_page" id="id_page" value="2">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                    <button type="submit" class="btn btn-success">تاكيد</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+				<button type="submit" class="btn btn-success">تاكيد</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 @endsection
 @section('js')
@@ -263,12 +267,11 @@
 </script>
 
 <script>
-        $('#Transfer_invoice').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var invoice_id = button.data('invoice_id')
-            var modal = $(this)
-            modal.find('.modal-body #invoice_id').val(invoice_id);
-        })
-
-    </script>
+	$('#Transfer_invoice').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget)
+		var invoice_id = button.data('invoice_id')
+		var modal = $(this)
+		modal.find('.modal-body #invoice_id').val(invoice_id);
+	})
+</script>
 @endsection
