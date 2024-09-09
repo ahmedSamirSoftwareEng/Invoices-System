@@ -222,4 +222,23 @@ class InvoiceController extends Controller
 
         return response()->json($products);
     }
+
+    public function Invoice_Paid()
+    {
+        $invoices = Invoice::where('Value_Status', 1)->get();
+        return view('invoices.invoices_paid',compact('invoices'));
+    }
+
+    public function Invoice_unPaid()
+    {
+        $invoices = Invoice::where('Value_Status',2)->get();
+        return view('invoices.invoices_unpaid',compact('invoices'));
+    }
+
+    public function Invoice_Partial()
+    {
+        $invoices = Invoice::where('Value_Status',3)->get();
+        return view('invoices.invoices_Partial',compact('invoices'));
+    }
+
 }
