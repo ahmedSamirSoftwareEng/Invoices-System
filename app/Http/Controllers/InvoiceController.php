@@ -194,27 +194,35 @@ class InvoiceController extends Controller
      */
     public function destroy(Request $request)
     {
-        // dd($request->all());
-        $invoice = Invoice::findOrFail($request->invoice_id);
-        $attachments = InvoicesAttachments::where('invoice_id', $request->invoice_id)->get();
-        
-        // hard delete 
-        // if (!empty($attachments)) {
-        //     foreach ($attachments as $attachment) {
-        //     $attachment->delete();
-        //     Storage::disk('public_uploads')->deleteDirectory($invoice->invoice_number);
-        //     }
-        // }
-        // $invoice->forceDelete();
+        $id = $request->invoice_id;
+        $invoices = Invoice::where('id', $id)->first();
+        $attachments = InvoicesAttachments::where('invoice_id', $id)->first();
 
-        // soft delete
-        $invoice->delete();
-        
-        session()->flash('delete', 'تم حذف الفاتورة بنجاح');
-        return back();
-        
+         $id_page =$request->id_page;
+
+
+        if (!$id_page==2) {
+
+        if (!empty($attachments->invoice_number)) {
+
+            Storage::disk('public_uploads')->deleteDirectory($attachments->invoice_number);
+        }
+
+        $invoices->forceDelete();
+        session()->flash('delete_invoice','تم حذف الفاتورة بنجاح');
+        return redirect('/invoices');
+
+        }
+
+        else {
+
+            $invoices->delete();
+            session()->flash('archive_invoice','تم حذف الفاتورة بنجاح');
+            return redirect('/Archive');
+        }
+
+
     }
-
     public function getProducts($id)
     {
 

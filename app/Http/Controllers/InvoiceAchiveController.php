@@ -22,7 +22,7 @@ class InvoiceAchiveController extends Controller
     public function index()
     {
         $invoices = Invoice::onlyTrashed()->get();
-        return view('Invoices.Archive_Invoices',compact('invoices'));
+        return view('invoices.Archive_Invoices',compact('invoices'));
     }
 
 
@@ -92,8 +92,15 @@ class InvoiceAchiveController extends Controller
      */
     public function destroy(Request $request)
     {
+        // dd($request->all()); 
          $invoices = Invoice::withTrashed()->where('id',$request->invoice_id)->first();
-         $invoices->forceDelete();
+        //  dd($attachments);
+        //  delete files from server
+ 
+        
+            Storage::disk('public_uploads')->deleteDirectory($invoices->invoice_number); 
+        
+        $invoices->forceDelete();
          session()->flash('delete_invoice');
          return redirect('/Archive');
     

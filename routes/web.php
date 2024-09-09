@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Controllers\InvoiceAchiveController;
 use App\Models\Invoice;
 
 Route::get('/', function () {
@@ -28,6 +29,8 @@ Route::resource('sections', SectionController::class);
 Route::resource('products', ProductController::class);
 
 Route::resource('InvoiceAttachments', InvoicesAttachmentsController::class);
+
+Route::resource('Archive', InvoiceAchiveController::class);
 
 Route::get ('/section/{id}', [InvoiceController::class, 'getproducts']);
 
