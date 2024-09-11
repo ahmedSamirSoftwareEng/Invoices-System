@@ -14,6 +14,9 @@ use App\Models\InvoicesAttachments;
 use Illuminate\Support\Facades\Storage;
 class InvoiceAchiveController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permission:ارشيف الفواتير', ['only' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -20,6 +20,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:الفواتير', ['only' => ['index']]);
+        $this->middleware('permission:اضافة فاتورة', ['only' => ['create']]);
+        $this->middleware('permission:تعديل فاتورة', ['only' => ['edit']]);
+        $this->middleware('permission:حذف فاتورة', ['only' => ['destroy']]);
+      
+    }
     /**
      * Display a listing of the resource.
      */
@@ -75,7 +83,7 @@ class InvoiceController extends Controller
         ]);
 
         if ($request->hasFile('pic')) {
-            
+
 
             $invoice_id = Invoice::latest()->first()->id;
             $image = $request->file('pic');
@@ -97,8 +105,8 @@ class InvoiceController extends Controller
         $user = Auth::user();
         // dd($user);
 
-    // Notify the user
-   Notification::send($user, new AddInvoice($invoice_id));
+        // Notify the user
+        Notification::send($user, new AddInvoice($invoice_id));
 
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
@@ -115,7 +123,7 @@ class InvoiceController extends Controller
 
     public function Status_update(Request $request)
     {
-        
+
         // dd($request->all());
         $invoices = Invoice::findOrFail($request->invoice_id);
         if ($request->Status == 'مدفوعة') {
@@ -123,7 +131,7 @@ class InvoiceController extends Controller
                 'status' => $request->Status,
                 'Value_Status' => 1,
             ]);
-    
+
             InvoicesDetails::create([
                 'id_Invoice' => $request->invoice_id,
                 'invoice_number' => $request->invoice_number,
@@ -134,10 +142,10 @@ class InvoiceController extends Controller
                 'note' => $request->note,
                 'user' => (Auth::user()->name),
                 'Payment_Date' => $request->Payment_Date,
-    
-                
+
+
             ]);
-        }else {
+        } else {
             $invoices->update([
                 'status' => $request->Status,
                 'Value_Status' => 3,
@@ -153,11 +161,11 @@ class InvoiceController extends Controller
                 'note' => $request->note,
                 'user' => (Auth::user()->name),
                 'Payment_Date' => $request->Payment_Date,
-    
-    
+
+
             ]);
         }
-      
+
 
         session()->flash('Status_Update', 'تم تحديث حالة الفاتورة بنجاح');
         return redirect('/invoices');
@@ -209,30 +217,25 @@ class InvoiceController extends Controller
         $invoices = Invoice::where('id', $id)->first();
         $attachments = InvoicesAttachments::where('invoice_id', $id)->first();
 
-         $id_page =$request->id_page;
+        $id_page = $request->id_page;
 
 
-        if (!$id_page==2) {
+        if (!$id_page == 2) {
 
-        if (!empty($attachments->invoice_number)) {
+            if (!empty($attachments->invoice_number)) {
 
-            Storage::disk('public_uploads')->deleteDirectory($attachments->invoice_number);
-        }
+                Storage::disk('public_uploads')->deleteDirectory($attachments->invoice_number);
+            }
 
-        $invoices->forceDelete();
-        session()->flash('delete_invoice','تم حذف الفاتورة بنجاح');
-        return redirect('/invoices');
-
-        }
-
-        else {
+            $invoices->forceDelete();
+            session()->flash('delete_invoice', 'تم حذف الفاتورة بنجاح');
+            return redirect('/invoices');
+        } else {
 
             $invoices->delete();
-            session()->flash('archive_invoice','تم حذف الفاتورة بنجاح');
+            session()->flash('archive_invoice', 'تم حذف الفاتورة بنجاح');
             return redirect('/Archive');
         }
-
-
     }
     public function getProducts($id)
     {
@@ -245,32 +248,30 @@ class InvoiceController extends Controller
     public function Invoice_Paid()
     {
         $invoices = Invoice::where('Value_Status', 1)->get();
-        return view('invoices.invoices_paid',compact('invoices'));
+        return view('invoices.invoices_paid', compact('invoices'));
     }
 
     public function Invoice_unPaid()
     {
-        $invoices = Invoice::where('Value_Status',2)->get();
-        return view('invoices.invoices_unpaid',compact('invoices'));
+        $invoices = Invoice::where('Value_Status', 2)->get();
+        return view('invoices.invoices_unpaid', compact('invoices'));
     }
 
     public function Invoice_Partial()
     {
-        $invoices = Invoice::where('Value_Status',3)->get();
-        return view('invoices.invoices_Partial',compact('invoices'));
+        $invoices = Invoice::where('Value_Status', 3)->get();
+        return view('invoices.invoices_Partial', compact('invoices'));
     }
 
     public function Print_invoice($id)
     {
         $invoices = Invoice::where('id', $id)->first();
-        return view('invoices.Print_invoice',compact('invoices'));
+        return view('invoices.Print_invoice', compact('invoices'));
     }
 
-   
-public function exportInvoices() 
-{
-    return Excel::download(new InvoicesExport, 'invoices.xlsx');
-}
 
-
+    public function exportInvoices()
+    {
+        return Excel::download(new InvoicesExport, 'invoices.xlsx');
+    }
 }
