@@ -66,16 +66,19 @@
 
 	<div class="col-xl-12">
 		<div class="card mg-b-20">
-			<div class="card-header pb-0">
-				<div class="d-flex justify-content-between">
-					<div class="d-flex justify-content-between">
 
-						<a href="invoices/create" class="modal-effect btn btn-outline-primary btn-block"
-							data-bs-effect="effect-scale" data-bs-toggle="modal"> <i class="fas fa-plus"></i>&nbsp; اضافة فاتورة </a>
+			<div class="d-flex justify-content-start ">
+				<div class="d-flex justify-content-between m-2">
 
-					</div>
+					<a href="invoices/create" class="modal-effect btn btn-outline-primary btn-block"
+						data-bs-effect="effect-scale" data-bs-toggle="modal"> <i class="fas fa-plus"></i>&nbsp; اضافة فاتورة </a>
+				</div>
+				<div class="d-flex justify-content-between m-2">
+					<a href="{{route('export-invoices')}}" class="modal-effect btn btn-outline-primary btn-block"
+						data-bs-effect="effect-scale" data-bs-toggle="modal"><i class="fas fa-file-export"></i>&nbsp;تصدير الى excel</a></a>
 				</div>
 			</div>
+
 			<div class="card-body">
 				<div class="table-responsive">
 					<table id="example1" class="table key-buttons text-md-nowrap" data-page-length="50">
@@ -150,7 +153,7 @@
 												data-toggle="modal" data-target="#Transfer_invoice"><i
 													class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
 												الارشيف</a>
-												
+
 											<a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
 													class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
 												الفاتورة
