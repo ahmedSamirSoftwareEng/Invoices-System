@@ -11,6 +11,7 @@ use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\InvoiceAchiveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\InvoicesReportController;
 
 
 Route::get('/', function () {
@@ -65,6 +66,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', UserController::class);
 });
 
+Route::get('invoices_report',[InvoicesReportController::class,'index'])->name('invoices_report');
+
+Route::post('Search_invoices', [InvoicesReportController::class, 'Search_invoices'])->name('Search_invoices');
 
 
 Route::get('/{page}', [AdminController::class, 'index']);
