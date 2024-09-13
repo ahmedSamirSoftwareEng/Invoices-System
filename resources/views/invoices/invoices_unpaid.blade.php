@@ -118,23 +118,38 @@
 											class="btn ripple btn-primary btn-sm text-lg" data-toggle="dropdown"
 											type="button "><i class="fas fa-caret-down ">العمليات</i></button>
 										<div class="dropdown-menu tx-13">
-
+												@can('تعديل الفاتورة')
 											<a class="dropdown-item"
 												href=" {{ url('invoices') }}/{{ $invoice->id }}/edit">
 												<i class="text-warning fas fa-edit"></i>&nbsp;&nbsp;تعديل
 												الفاتورة</a>
-
+												@endcan
+												@can('حذف الفاتورة')
 											<a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
 												data-toggle="modal" data-target="#delete_invoice"><i
 													class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
 												الفاتورة</a>
-
+												@endcan
+												@can('تغير حالة الدفع')
 											<a class="dropdown-item"
 												href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
 													class=" text-success fas
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
 												حالة
 												الدفع</a>
+												@endcan
+												@can('ارشفة الفاتورة')
+											<a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
+												data-toggle="modal" data-target="#Transfer_invoice"><i
+													class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
+												الارشيف</a>
+												@endcan
+											@can('طباعةالفاتورة')
+											<a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
+													class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
+												الفاتورة
+											</a>
+											@endcan
 										</div>
 									</div>
 

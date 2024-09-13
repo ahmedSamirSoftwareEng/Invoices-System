@@ -11,6 +11,9 @@ use File;
 
 class InvoicesAttachmentsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permission:اضافة مرفق', ['only' => ['create']]);
+    }
     /**
      * Display a listing of the resource.
      */

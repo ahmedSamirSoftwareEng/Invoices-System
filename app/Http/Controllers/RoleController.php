@@ -12,11 +12,10 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        // Uncomment and set up middleware as required
-        // $this->middleware('permission:view roles', ['only' => ['index']]);
-        // $this->middleware('permission:create role', ['only' => ['create', 'store']]);
-        // $this->middleware('permission:edit role', ['only' => ['edit', 'update']]);
-        // $this->middleware('permission:delete role', ['only' => ['destroy']]);
+        $this->middleware('permission:عرض صلاحية', ['only' => ['index','show    ']]);
+        $this->middleware('permission:اضافة صلاحية', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل صلاحية', ['only' => ['edit', 'update']]);
+        $this->middleware('permission: حذف صلاحية', ['only' => ['destroy']]);
     }
 
     public function index(Request $request)

@@ -24,7 +24,7 @@ class InvoiceController extends Controller
     {
         $this->middleware('permission:الفواتير', ['only' => ['index']]);
         $this->middleware('permission:اضافة فاتورة', ['only' => ['create']]);
-        $this->middleware('permission:تعديل فاتورة', ['only' => ['edit']]);
+        $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit']]);
         $this->middleware('permission:حذف فاتورة', ['only' => ['destroy']]);
       
     }
