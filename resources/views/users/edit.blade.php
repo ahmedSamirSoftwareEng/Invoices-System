@@ -74,7 +74,7 @@
                 <div class="row mg-b-20">
                     <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
                         <label>كلمة المرور: <span class="tx-danger">*</span></label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="password" name="password" class="form-control"  required >
 
                     </div>
 
