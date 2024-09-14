@@ -12,6 +12,7 @@ use App\Http\Controllers\InvoiceAchiveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\InvoicesReportController;
+use App\Http\Controllers\CustomersReportController;
 
 
 Route::get('/', function () {
@@ -70,5 +71,8 @@ Route::get('invoices_report',[InvoicesReportController::class,'index'])->name('i
 
 Route::post('Search_invoices', [InvoicesReportController::class, 'Search_invoices'])->name('Search_invoices');
 
+Route::get('customers_report', [CustomersReportController::class, 'index'])->name('customers_report');
+
+Route::post('Search_customers', [CustomersReportController::class, 'Search_customers'])->name('Search_customers');
 
 Route::get('/{page}', [AdminController::class, 'index']);
