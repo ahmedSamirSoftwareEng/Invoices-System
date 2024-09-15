@@ -282,4 +282,18 @@ class InvoiceController extends Controller
     {
         return Excel::download(new InvoicesExport, 'invoices.xlsx');
     }
+
+    public function MarkAsRead_all (Request $request)
+    {
+
+        $userUnreadNotification= Auth::user()->unreadNotifications;
+
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+
+
+    }
+
 }
