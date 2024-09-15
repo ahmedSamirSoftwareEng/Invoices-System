@@ -154,7 +154,7 @@
 
 <!-- row opened -->
 <div class="row row-sm">
-	<div class="col-md-12 col-lg-12 col-xl-6 ">
+	<div class="col-md-12 col-lg-12 col-xl-8">
 		<div class="card">
 			<div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
 				<div class="d-flex justify-content-between">
@@ -168,9 +168,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-12 col-xl-6">
+	<div class="col-lg-12 col-xl-4">
 		<div class="card card-dashboard-map-one">
-			<label class="main-content-label">جمع الفواتير</label>
+			<label class="main-content-label">جميع الفواتير</label>
 			<span class="d-block mg-b-20 text-muted tx-12">اجمالي الفواتير {{\App\Models\Invoice::count()}}</span>
 			<canvas id="invoiceChart2" ></canvas>
 
@@ -252,7 +252,7 @@
 	<script>
     var ctx = document.getElementById('invoiceChart2').getContext('2d');
 	var invoiceChart = new Chart(ctx, {
-    type: 'line', // or 'bar', 'doughnut'
+    type: 'pie', // or 'bar', 'doughnut'
     data: {
         labels: @json($labels),
         datasets: [{

@@ -96,17 +96,7 @@
                     </div>
                 </div>
 
-                <div class="row mg-b-20">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>نوع المستخدم</strong>
-                            <select name="roles[]" class="form-control" multiple>
-    @foreach($roles as $role)
-        <option value="{{ $role }}" {{ in_array($role, $userRole) ? 'selected' : '' }}>
-            {{ $role }}
-        </option>
-    @endforeach
-</select>
+                
 
                         </div>
                     </div>

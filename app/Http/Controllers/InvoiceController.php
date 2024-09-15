@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Notifications\AddInvoice;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\App;
 
 
 class InvoiceController extends Controller
@@ -26,7 +27,6 @@ class InvoiceController extends Controller
         $this->middleware('permission:اضافة فاتورة', ['only' => ['create']]);
         $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit']]);
         $this->middleware('permission:حذف فاتورة', ['only' => ['destroy']]);
-      
     }
     /**
      * Display a listing of the resource.
@@ -102,11 +102,19 @@ class InvoiceController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
 
-        $user = Auth::user();
         // dd($user);
 
-        // Notify the user
-        Notification::send($user, new AddInvoice($invoice_id));
+        // Notify the user with email
+        // $user = Auth::user();
+
+        // Notification::send($user, new AddInvoice($invoice_id));
+
+        $user = User::get();    
+        $invoices = Invoice::latest()->first();
+
+
+        Notification::send($user, new \App\Notifications\Add_invoice_new($invoices));
+
 
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
