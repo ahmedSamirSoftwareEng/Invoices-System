@@ -107,7 +107,8 @@
 
                     <div class="row">
                         <div class="col-sm-1 col-md-1">
-                            <button class="btn btn-primary btn-block">بحث</button>
+                            <button class="btn btn-primary">بحث</button>
+                        
                         </div>
                     </div>
                 </form>

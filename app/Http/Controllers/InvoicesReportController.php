@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 
+use function Laravel\Prompts\select;
+
 class InvoicesReportController extends Controller
 {
     public function index()
@@ -70,5 +72,11 @@ class InvoicesReportController extends Controller
            
             
            
+    }
+
+    public function Search_with_name(Request $request){
+       
+       $invoice_id=Invoice::select('id')->from('invoices')->where('invoice_number',$request->invoice_number)->first();
+      return redirect('InvoicesDetails/'.$invoice_id->id);
     }
 }
