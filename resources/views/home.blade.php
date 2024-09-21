@@ -17,7 +17,7 @@
 			<p class="mg-b-0"> في برنامج الفواتير</p>
 		</div>
 	</div>
-	
+
 </div>
 <!-- /breadcrumb -->
 @endsection
@@ -70,7 +70,7 @@
 						<span class="float-right my-auto mr-auto">
 							<i class="fas fa-arrow-circle-down text-white"></i>
 							<span class="text-white op-7">
-							{{ floor((\App\Models\Invoice::where('value_status', 2)->count()) / \App\Models\Invoice::count() * 100) }}%
+								{{ floor((\App\Models\Invoice::where('value_status', 2)->count()) / \App\Models\Invoice::count() * 100) }}%
 
 							</span>
 						</span>
@@ -97,8 +97,8 @@
 						</div>
 						<span class="float-right my-auto mr-auto">
 							<i class="fas fa-arrow-circle-up text-white"></i>
-							<span class="text-white op-7"> 
-							{{ floor((\App\Models\Invoice::where('value_status', 1)->count()) / \App\Models\Invoice::count() * 100) }}%
+							<span class="text-white op-7">
+								{{ floor((\App\Models\Invoice::where('value_status', 1)->count()) / \App\Models\Invoice::count() * 100) }}%
 							</span>
 						</span>
 					</div>
@@ -138,9 +138,9 @@
 <!-- row closed -->
 
 <!-- row opened -->
-<div class="row row-sm">
-	<div class="col-md-12 col-lg-12 col-xl-8">
-		<div class="card">
+<div class="row row-sm d-flex">
+	<div class="col-md-12 col-lg-12 col-xl-8 d-flex">
+		<div class="card w-100">
 			<div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
 				<div class="d-flex justify-content-between">
 					<h4 class="card-title mb-0">حالة الفواتير</h4>
@@ -148,20 +148,20 @@
 				</div>
 				<p class="tx-12 text-muted mb-0">نسبة الفواتير المدفوعة والغير مدفوعة والمدفوعة جزئيا</p>
 			</div>
-			<div class="card-body " >
-			<canvas id="invoiceChart" ></canvas>
+			<div class="card-body" >
+				<canvas id="invoiceChart"></canvas>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-12 col-xl-4">
-		<div class="card card-dashboard-map-one">
+	<div class="col-lg-12 col-xl-4 d-flex">
+		<div class="card card-dashboard-map-one w-100">
 			<label class="main-content-label">جميع الفواتير</label>
 			<span class="d-block mg-b-20 text-muted tx-12">اجمالي الفواتير {{\App\Models\Invoice::count()}}</span>
-			<canvas id="invoiceChart2" ></canvas>
-
+			<canvas id="invoiceChart2"></canvas>
 		</div>
 	</div>
 </div>
+	
 <!-- row closed -->
 
 
@@ -193,87 +193,87 @@
 <script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var ctx = document.getElementById('invoiceChart').getContext('2d');
-    var invoiceChart = new Chart(ctx, {
-        type: 'bar', 	
-        data: {
-            labels: @json($labels),
-            datasets: [{
-                label: 'حالة الفواتير',
-                data: @json($percentages),
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.label || '';
-                            let value = context.raw || 0;
-                            return `${label}: ${value.toFixed(2)}%`;
-                        }
-                    }
-                }
-            }
-        }
-    });
+	var ctx = document.getElementById('invoiceChart').getContext('2d');
+	var invoiceChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: @json($labels),
+			datasets: [{
+				label: 'حالة الفواتير',
+				data: @json($percentages),
+				backgroundColor: [
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(75, 192, 192, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			plugins: {
+				legend: {
+					position: 'top',
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							let label = context.label || '';
+							let value = context.raw || 0;
+							return `${label}: ${value.toFixed(2)}%`;
+						}
+					}
+				}
+			}
+		}
+	});
 </script>
 
-	<script>
-    var ctx = document.getElementById('invoiceChart2').getContext('2d');
+<script>
+	var ctx = document.getElementById('invoiceChart2').getContext('2d');
 	var invoiceChart = new Chart(ctx, {
-    type: 'pie', // or 'bar', 'doughnut'
-    data: {
-        labels: @json($labels),
-        datasets: [{
-            label: 'حالة الفواتير',
-            data: @json($percentages),
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let label = context.label || '';
-                        let value = context.raw || 0;
-                        return `${label}: ${value.toFixed(2)}%`;
-                    }
-                }
-            }
-        }
-    }
-});
+		type: 'pie', // or 'bar', 'doughnut'
+		data: {
+			labels: @json($labels),
+			datasets: [{
+				label: 'حالة الفواتير',
+				data: @json($percentages),
+				backgroundColor: [
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(75, 192, 192, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			plugins: {
+				legend: {
+					position: 'top',
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							let label = context.label || '';
+							let value = context.raw || 0;
+							return `${label}: ${value.toFixed(2)}%`;
+						}
+					}
+				}
+			}
+		}
+	});
 </script>
 
 @endsection
