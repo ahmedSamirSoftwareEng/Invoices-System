@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="{{ route('users.index')  }}"><i
+                        <a class="dropdown-item" href="{{ route('profile')  }}"><i
                                 class="bx bx-user"></i>Profile</a>
                         <a class="dropdown-item" href="{{ route('users.edit', Auth::user()->id)  }}"><i class="bx bx-cog"></i> Edit Profile</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"

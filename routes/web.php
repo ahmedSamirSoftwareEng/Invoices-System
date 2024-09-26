@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\InvoicesReportController;
 use App\Http\Controllers\CustomersReportController;
-
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -78,6 +78,8 @@ Route::post('Search_customers', [CustomersReportController::class, 'Search_custo
 Route::get('MarkAsRead_all',[InvoiceController::class,'MarkAsRead_all'])->name('MarkAsRead_all');
 
 Route::post('Search_with_name',[InvoicesReportController::class,'Search_with_name'])->name('Search_with_name');
+
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
 
 Route::get('/{page}', [AdminController::class, 'index']);
